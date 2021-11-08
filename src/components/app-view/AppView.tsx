@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { TraineeInterfaceContext } from '../../context/TraineeInterfaceContext';
 import FlagsOverview from '../flags-overview/FlagsOverview';
+import Leaderboard from '../leaderboard/Leaderboard';
 import Login from '../login/Login';
 import Navbar from '../navbar/Navbar';
 import './AppView.css';
@@ -14,7 +15,7 @@ const AppView = () => {
                 <Navbar />
             </div>
             <div className="view-wrapper">
-                <FlagsOverview />
+                <Leaderboard />
             </div>
         </div>
     )
