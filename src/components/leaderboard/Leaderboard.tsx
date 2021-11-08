@@ -16,6 +16,138 @@ const Leaderboard = () => {
                     <div>
                         score
                     </div>
+                </div>`
+                <div className="team">
+                    <div>
+                        1
+                    </div>
+                    <div>
+                        Team name
+                    </div>
+                    <div>
+                        score
+                    </div>
+                </div>
+                <div className="team">
+                    <div>
+                        1
+                    </div>
+                    <div>
+                        Team name
+                    </div>
+                    <div>
+                        score
+                    </div>
+                </div>
+                <div className="team">
+                    <div>
+                        1
+                    </div>
+                    <div>
+                        Team name
+                    </div>
+                    <div>
+                        score
+                    </div>
+                </div>
+                <div className="team">
+                    <div>
+                        1
+                    </div>
+                    <div>
+                        Team name
+                    </div>
+                    <div>
+                        score
+                    </div>
+                </div>
+                <div className="team">
+                    <div>
+                        1
+                    </div>
+                    <div>
+                        Team name
+                    </div>
+                    <div>
+                        score
+                    </div>
+                </div>
+                <div className="team">
+                    <div>
+                        1
+                    </div>
+                    <div>
+                        Team name
+                    </div>
+                    <div>
+                        score
+                    </div>
+                </div>
+                <div className="team">
+                    <div>
+                        1
+                    </div>
+                    <div>
+                        Team name
+                    </div>
+                    <div>
+                        score
+                    </div>
+                </div>
+                <div className="team">
+                    <div>
+                        1
+                    </div>
+                    <div>
+                        Team name
+                    </div>
+                    <div>
+                        score
+                    </div>
+                </div>
+                <div className="team">
+                    <div>
+                        1
+                    </div>
+                    <div>
+                        Team name
+                    </div>
+                    <div>
+                        score
+                    </div>
+                </div>
+                <div className="team">
+                    <div>
+                        1
+                    </div>
+                    <div>
+                        Team name
+                    </div>
+                    <div>
+                        score
+                    </div>
+                </div>
+                <div className="team">
+                    <div>
+                        1
+                    </div>
+                    <div>
+                        Team name
+                    </div>
+                    <div>
+                        score
+                    </div>
+                </div>
+                <div className="team">
+                    <div>
+                        1
+                    </div>
+                    <div>
+                        Team name
+                    </div>
+                    <div>
+                        score
+                    </div>
                 </div>
                 <div>00:00</div>
             </div>
