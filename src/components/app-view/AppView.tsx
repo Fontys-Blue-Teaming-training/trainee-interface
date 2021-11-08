@@ -1,7 +1,11 @@
+import { useContext } from 'react';
+import { TraineeInterfaceContext } from '../../context/TraineeInterfaceContext';
 import Navbar from '../navbar/Navbar';
 import './AppView.css';
 
 const AppView = () => {
+  const {highscores, setHighscores} = useContext(TraineeInterfaceContext);
+  
     return (
         <div className="app-wrapper">
             <div className="nav-wrapper">

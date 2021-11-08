@@ -1,4 +1,6 @@
+import { TeamHighScore } from "../model/TeamHighScore";
+
 export default interface ITraineeInterfaceContext {
-    highscores: any[];
-    setHighscores: React.Dispatch<React.SetStateAction<any[]>>;
+    highscores: TeamHighScore[];
+    setHighscores: React.Dispatch<React.SetStateAction<TeamHighScore[]>>;
 }
