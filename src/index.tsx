@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { TraineeInterfaceProvider } from './context/TraineeInterfaceContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <TraineeInterfaceProvider>
+      <App />
+    </TraineeInterfaceProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

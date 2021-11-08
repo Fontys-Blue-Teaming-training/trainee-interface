@@ -1,0 +1,10 @@
+.app-wrapper {
+    display: grid;
+    grid-template-columns: 3fr 20fr;
+    height: 100vh;
+ }
+ 
+ .view-wrapper {
+   background-color: #eee;
+   overflow-y: scroll;
+ }
