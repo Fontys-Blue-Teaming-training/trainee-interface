@@ -8,3 +8,17 @@
    background-color: #eee;
    overflow-y: scroll;
  }
+
+ .dot {
+  width: 3.1em;
+    height: 2.5em;
+    border-radius: 50% 50% 0 0;
+    border-style: dotted;
+    border-width: 0.4em;
+    border-bottom-width: 0;
+    background-image: linear-gradient(to bottom, transparent 45%, currentColor 45%, currentColor 55%, transparent 55%), linear-gradient(to right, transparent 30%, currentColor 30%, currentColor 40%, transparent 40%, transparent 60%, currentColor 60%, currentColor 70%, transparent 70%);
+    background-size: 70% 70%;
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    box-shadow: inset 0 0.3em 0.1em 0.2em currentColor;
+}

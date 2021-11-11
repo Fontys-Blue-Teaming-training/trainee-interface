@@ -15,7 +15,9 @@ const AppView = () => {
                 <Navbar />
             </div>
             <div className="view-wrapper">
-                <Leaderboard />
+                <div className="dot">
+
+                </div>
             </div>
         </div>
     )
