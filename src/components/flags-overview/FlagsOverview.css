@@ -22,6 +22,16 @@
     padding: 20px;
 }
 
+.flag-input {
+  padding-bottom: 10px !important;
+  width: 100%;
+}
+
+.submit-flag {
+  background-color: lightgray !important;
+  width: 100%;
+}
+
 .flag-description {
     width: 90%;
 }

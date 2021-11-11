@@ -1,5 +1,4 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useContext } from 'react';
 import './App.css';
 import AppView from './components/app-view/AppView';
 
