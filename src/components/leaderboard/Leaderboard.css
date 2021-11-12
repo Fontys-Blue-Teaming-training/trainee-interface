@@ -6,6 +6,10 @@
 }
 
 
+.table-head {
+    background-color: lightgray;
+}
+
 .leaderboard {
     margin: auto;
     padding: 10px;
@@ -14,12 +18,4 @@
     justify-content: center;
     text-align: center;
     width: 80%;
-}
-
-.team {
-    padding: 20px;
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    border-bottom: lightgray solid 1px;
 }
