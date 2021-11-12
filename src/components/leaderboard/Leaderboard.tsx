@@ -88,7 +88,6 @@ const Leaderboard = () => {
                     </Table>
                 </TableContainer>
             </div>
-
         </div>
     )
 }
