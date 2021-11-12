@@ -1,9 +1,11 @@
 export class TeamHighScore {
-  name: string;
-  score: number;
+  teamName: string;
+  points: number;
+  amountOfFlags: number;
 
-  constructor(name: string, score: number){
-    this.name = name;
-    this.score = score;
+  constructor(teamName: string, points: number, amountOfFlags: number){
+    this.teamName = teamName;
+    this.points = points;
+    this.amountOfFlags = amountOfFlags;
   }
 }
