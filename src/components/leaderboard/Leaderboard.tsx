@@ -6,13 +6,14 @@ import { styled, TableCell, TableRow } from '@material-ui/core';
 import { tableCellClasses } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { TraineeInterfaceContext } from '../../context/TraineeInterfaceContext';
-import './Leaderboard.css';
 import { ScenarioHttpClient } from '../../service/ScenarioHttpClient';
 import { LeaderBoardEntry } from '../../model/LeaderboardEntry';
+import './Leaderboard.css';
+import Timer from '../timer/Timer';
 
 const Leaderboard = () => {
 
-    const { leaderboard, setLeaderboard } = useContext(TraineeInterfaceContext);
+    const { leaderboard, setLeaderboard, leaderboardData, setLeaderboardData, timer } = useContext(TraineeInterfaceContext);
     const [alert, setAlert] = useState('');
     const scenarioClient = new ScenarioHttpClient();
 
@@ -59,34 +60,45 @@ const Leaderboard = () => {
     ];
 
     useEffect(() => {
-        setTimeout(() => {
-            scenarioClient.fetchLeaderBoard(1)
-                .then((res: any) => {
-                    if (res['success']) {
-                        let leaderboardTemp: LeaderBoardEntry[];
-                        let leaderboardArray: LeaderBoardEntry[] = [];
-                        leaderboardTemp = res['message'];
-                        leaderboardTemp.forEach((item: LeaderBoardEntry, index: any) => {
-                            const foundIndex = leaderboardArray.findIndex(x => x['teamId'] === item.teamId);
-                            if (foundIndex > -1) {
-                                leaderboardArray[foundIndex].points += item.points;
-                            }
-                            else {
-                                leaderboardArray.push(item);
-                            }
-                        })
-                        leaderboardArray.sort(function (a: any, b: any) {
-                            return b["points"] - a["points"];
-                        });
+        scenarioClient.fetchLeaderBoard(1)
+            .then((res: any) => {
+                if (res['success']) {
+                    let leaderboard: LeaderBoardEntry[];
+                    leaderboard = res['message'];
+                    setLeaderboardData(leaderboard);
+                }
+                else {
+                    setAlert(res['message']);
+                }
+            });
+    }, []);
 
-                        setLeaderboard(leaderboardArray as LeaderBoardEntry[]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            let leaderboardTemp: LeaderBoardEntry[];
+            let leaderboardArray: LeaderBoardEntry[] = [];
+            leaderboardTemp = leaderboardData;
+            const timePassed = timer.getTime() / 1000;
+            leaderboardTemp.forEach((item: LeaderBoardEntry, index: any) => {
+                if (timePassed < item.totalSeconds) {
+                    const foundIndex = leaderboardArray.findIndex(x => x['teamId'] === item.teamId);
+                    if (foundIndex > -1) {
+                        leaderboardArray[foundIndex].points += item.points;
                     }
                     else {
-                        setAlert(res['message']);
+                        leaderboardArray.push(item);
                     }
-                })
+                }
+            });
+            leaderboardArray.sort(function (a: any, b: any) {
+                return b["points"] - a["points"];
+            });
+            setLeaderboard(leaderboardArray as LeaderBoardEntry[]);
         }, 1000);
     });
+
+    //Todo: Get team score
 
     return (
         <div className="wrapper">
@@ -95,49 +107,50 @@ const Leaderboard = () => {
             </div>
             <div className="body">
                 <div className="leaderboard body-flex">
+                    <Timer />
                     <div>{alert}</div>
-                    <TableContainer sx={{ maxHeight: 440 }}>
-                        <Table>
-                            <TableHead className="table-head">
-                                <StyledTableRow>
-                                    {columns.map((column) => (
-                                        <StyledTableCell
-                                            key={column.id}
-                                            align={"left"}
-                                            style={{ width: column.maxWidth }}
-                                        >
-                                            {column.label}
-                                        </StyledTableCell>
-                                    ))}
-                                </StyledTableRow>
-                            </TableHead>
-                            <TableBody>
-                                {
-                                    leaderboard && leaderboard.length > 0 ?
-                                        leaderboard.map((row, index) => {
-                                            return (
-                                                <StyledTableRow hover role="checkbox" tabIndex={-1} id={row.flagId.toString()}>
-                                                    <StyledTableCell size="small">
-                                                        {index + 1}
-                                                    </StyledTableCell>
-                                                    <StyledTableCell size="small">
-                                                        {row.teamName.toString()}
-                                                    </StyledTableCell>
-                                                    <StyledTableCell size="small">
-                                                        {row.points.toString()}
-                                                    </StyledTableCell>
-                                                </StyledTableRow>
-                                            );
-                                        })
-                                        :
-                                        null
-                                }
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                    {
+                        leaderboard && leaderboard.length > 0 ?
+                            <TableContainer sx={{ maxHeight: 440 }}>
+                                <Table>
+                                    <TableHead className="table-head">
+                                        <StyledTableRow>
+                                            {columns.map((column) => (
+                                                <StyledTableCell
+                                                    key={column.id}
+                                                    align={"left"}
+                                                    style={{ width: column.maxWidth }}
+                                                >
+                                                    {column.label}
+                                                </StyledTableCell>
+                                            ))}
+                                        </StyledTableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {
+                                            leaderboard.map((row, index) => {
+                                                return (
+                                                    <StyledTableRow hover role="checkbox" tabIndex={-1} id={row.flagId.toString()}>
+                                                        <StyledTableCell size="small">
+                                                            {index + 1}
+                                                        </StyledTableCell>
+                                                        <StyledTableCell size="small">
+                                                            {row.teamName.toString()}
+                                                        </StyledTableCell>
+                                                        <StyledTableCell size="small">
+                                                            {row.points.toString()}
+                                                        </StyledTableCell>
+                                                    </StyledTableRow>
+                                                );
+                                            })
+                                        }
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                            : null
+                    }
                 </div>
             </div>
-
         </div>
     )
 }

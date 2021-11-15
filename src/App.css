@@ -9,6 +9,8 @@
   display: flex;
   width: 100%;    
   overflow: auto;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .body-flex {

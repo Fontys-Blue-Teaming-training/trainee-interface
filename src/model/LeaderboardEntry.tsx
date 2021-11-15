@@ -3,13 +3,13 @@ export class LeaderBoardEntry {
     teamId: number;
     teamName: string;
     points: number;
-    completeDate: Date;
+    totalSeconds: number;
 
-    constructor(flagId: number, teamId: number, teamName: string, points: number, completeDate: Date) {
+    constructor(flagId: number, teamId: number, teamName: string, points: number, totalSeconds: number) {
         this.flagId = flagId;
         this.teamId = teamId;
         this.teamName = teamName;
         this.points = points;
-        this.completeDate = completeDate;
+        this.totalSeconds = totalSeconds;
     }
 }
