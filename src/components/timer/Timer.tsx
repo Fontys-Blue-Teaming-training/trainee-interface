@@ -1,3 +1,5 @@
+import './Timer.css';
+
 const Timer = () => {
 
 }

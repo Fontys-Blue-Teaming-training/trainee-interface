@@ -41,22 +41,25 @@ const FlagsOverview = () => {
     }
 
     return (
-        <div className="flags-wrapper">
-            <div className="flags">
-                <h1 className="page-title">Flags</h1>
-                <div className="alert">{alert}</div>
-                <TextField onChange={(event) => changeFlagInput(event.target.value)} className="flag-input" id="standard-basic" label="Insert Flag" variant="standard" />
-                <Button onClick={submitFlag} className="submit-flag">Submit</Button>
-                <div className="flag">
-                    <label className="checkmark-container">
-                        <input type="checkbox" />
-                        <span className="checkmark"></span>
-                    </label>
-                    <div className="flag-description">
-                        Flag name
+        <div className="wrapper">
+            <div className="title">
+                <h1>Flags</h1>
+            </div>
+            <div className="body">
+                <div className="body-flex flags">
+                    <div className="alert">{alert}</div>
+                    <TextField onChange={(event) => changeFlagInput(event.target.value)} className="flag-input" id="standard-basic" label="Insert Flag" variant="standard" />
+                    <Button onClick={submitFlag} className="submit-flag">Submit</Button>
+                    <div className="flag">
+                        <label className="checkmark-container">
+                            <input type="checkbox" />
+                            <span className="checkmark"></span>
+                        </label>
+                        <div className="flag-description">
+                            Flag name
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     )

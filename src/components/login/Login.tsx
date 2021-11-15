@@ -1,5 +1,5 @@
-import { Button, Paper, TextField } from '@material-ui/core';
-import { useContext, useEffect, useState } from 'react';
+import { Button, TextField } from '@material-ui/core';
+import { useContext, useState } from 'react';
 import { TraineeInterfaceContext } from '../../context/TraineeInterfaceContext';
 import { Team } from '../../model/Team';
 import { TeamHttpClient } from '../../service/TeamHttpClient';
@@ -38,13 +38,17 @@ const Login = () => {
     }
 
     return (
-        <div className="login-wrapper">
-            <div className="login-form">
-                <div>
-                    <h1>Log In</h1>
-                    <div className="alert">{alert}</div>
-                    <TextField onChange={(event) => changeTeamName(event.target.value)} className="team-name-input" id="standard-basic" label="Team Name" variant="standard" />
-                    <Button onClick={login} className="submit-team-name">Submit</Button>
+        <div className="wrapper">
+            <div className="title">
+                <h1>Log In</h1>
+            </div>
+            <div className="body">
+                <div className="body-flex">
+                    <div>
+                        <div className="alert">{alert}</div>
+                        <TextField onChange={(event) => changeTeamName(event.target.value)} className="team-name-input" id="standard-basic" label="Team Name" variant="standard" />
+                        <Button onClick={login} className="submit-team-name">Submit</Button>
+                    </div>
                 </div>
             </div>
         </div>
