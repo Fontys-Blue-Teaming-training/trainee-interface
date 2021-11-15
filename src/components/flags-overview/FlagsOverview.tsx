@@ -8,6 +8,7 @@ import './FlagsOverview.css';
 const FlagsOverview = () => {
     const [flagInput, setFlagInput] = useState();
     const [alert, setAlert] = useState('');
+    const [submitPressed, setSubmitPressed] = useState(true);
     const { flags, setFlags } = useContext(TraineeInterfaceContext);
     const FlagClient = new FlagHttpClient();
 
@@ -27,13 +28,12 @@ const FlagsOverview = () => {
             "teamId": id['id'],
             "flagCode": flagInput
         }
-
+        setSubmitPressed(true);
         FlagClient.submitFlag(flag)
             .then((res: any) => {
                 if (res['success']) {
                     let array: any[];
                     array = res['message'];
-                    console.log(array);
                 }
                 else {
                     setAlert(res['message']);
@@ -42,18 +42,22 @@ const FlagsOverview = () => {
     }
 
     useEffect(() => {
-        FlagClient.getFlags(1)
-            .then((res: any) => {
-                if (res['success']) {
-                    let array: Flag[];
-                    array = res['message'];
-                    setFlags(array);
-                }
-                else {
-                    setAlert(res['message']);
-                }
-            })
-    }, [submitFlag])
+        if (submitPressed) {
+            FlagClient.getFlags(1)
+                .then((res: any) => {
+                    if (res['success']) {
+                        let array: Flag[];
+                        array = res['message'];
+                        setFlags(array);
+                        //Add functionality to check input on completed flags
+                    }
+                    else {
+                        setAlert(res['message']);
+                    }
+                })
+            setSubmitPressed(false);
+        }
+    })
 
     return (
         <div className="wrapper">

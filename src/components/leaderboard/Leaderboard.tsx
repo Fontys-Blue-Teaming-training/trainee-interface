@@ -98,7 +98,7 @@ const Leaderboard = () => {
         }, 1000);
     });
 
-    //Todo: Get team score
+    //Todo: Get team score, set timer when training starts
 
     return (
         <div className="wrapper">
@@ -147,7 +147,7 @@ const Leaderboard = () => {
                                     </TableBody>
                                 </Table>
                             </TableContainer>
-                            : null
+                            : <div>No scores available yet</div>
                     }
                 </div>
             </div>
