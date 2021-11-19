@@ -15,6 +15,7 @@ const Leaderboard = () => {
 
     const { leaderboard, setLeaderboard, leaderboardData, setLeaderboardData, timer } = useContext(TraineeInterfaceContext);
     const [alert, setAlert] = useState('');
+    const [fetchLeaderBoard, setFetchLeaderBoard] = useState(false);
     const scenarioClient = new ScenarioHttpClient();
 
     const StyledTableRow = styled(TableRow)(({ theme }) => ({
@@ -75,7 +76,7 @@ const Leaderboard = () => {
 
 
     useEffect(() => {
-        setTimeout(() => {
+        setInterval(() => {
             let leaderboardTemp: LeaderBoardEntry[];
             let leaderboardArray: LeaderBoardEntry[] = [];
             leaderboardTemp = leaderboardData;
@@ -95,7 +96,7 @@ const Leaderboard = () => {
             });
             setLeaderboard(leaderboardArray);
         }, 1000);
-    });
+    }, []);
 
     //Todo: Get team score, set timer when training starts
 

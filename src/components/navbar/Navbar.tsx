@@ -5,19 +5,6 @@ import './Navbar.css';
 
 const Navbar = () => {
     const { team, setTeam } = useContext(TraineeInterfaceContext);
-
-    useEffect(() => {
-        try {
-            const teamObj = localStorage.getItem('team');
-            if (teamObj) {
-                setTeam(JSON.parse(teamObj));
-            }
-        }
-        catch (e) {
-            console.log(e);
-        }
-    }, [team])
-
     return (
         <div className="navbar">
             <div className="logo">

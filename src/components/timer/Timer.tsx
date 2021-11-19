@@ -54,6 +54,8 @@ const Timer = () => {
         }
     }, [])
 
+
+    //TODO: setInterval
     useEffect(() => {
         setTimeout(() => setClock(formatTime()), 1000);
     }, [intervalBool]);
