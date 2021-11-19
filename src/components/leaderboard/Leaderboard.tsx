@@ -61,17 +61,31 @@ const Leaderboard = () => {
     ];
 
     useEffect(() => {
-        scenarioClient.fetchLeaderBoard(1)
+        let team;
+        try {
+            const teamObj = localStorage.getItem('team');
+            if (teamObj) {
+                team = JSON.parse(teamObj);
+            }
+        }
+        catch (e) {
+            console.log(e);
+        }
+        scenarioClient.getCurrent(team.id)
             .then((res: any) => {
-                if (res['success']) {
-                    let leaderboard: LeaderBoardEntry[];
-                    leaderboard = res['message'];
-                    setLeaderboardData(leaderboard);
-                }
-                else {
-                    setAlert(res['message']);
-                }
-            });
+                scenarioClient.fetchLeaderBoard(res['message']['id'])
+                    .then((res: any) => {
+                        if (res['success']) {
+                            let leaderboard: LeaderBoardEntry[];
+                            leaderboard = res['message'];
+                            setLeaderboardData(leaderboard);
+                        }
+                        else {
+                            setAlert(res['message']);
+                        }
+                    });
+            })
+
     }, []);
 
 

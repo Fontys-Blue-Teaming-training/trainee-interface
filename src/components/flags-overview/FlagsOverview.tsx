@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { TraineeInterfaceContext } from '../../context/TraineeInterfaceContext';
 import { FlagCompleted } from '../../model/FlagCompleted';
 import { FlagHttpClient } from '../../service/FlagHttpClient';
+import { ScenarioHttpClient } from '../../service/ScenarioHttpClient';
 import './FlagsOverview.css';
 
 const FlagsOverview = () => {
@@ -10,6 +11,7 @@ const FlagsOverview = () => {
     const [alert, setAlert] = useState('');
     const { flags, setFlags } = useContext(TraineeInterfaceContext);
     const FlagClient = new FlagHttpClient();
+    const scenarioClient = new ScenarioHttpClient();
 
     const changeFlagInput = (event: any) => {
         setFlagInput(event)
@@ -55,7 +57,6 @@ const FlagsOverview = () => {
         catch (e) {
             console.log(e);
         }
-
         FlagClient.getFlags(teamObj['id'])
             .then((res: any) => {
                 if (res['success']) {

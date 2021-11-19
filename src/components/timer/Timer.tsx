@@ -62,9 +62,11 @@ const Timer = () => {
 
     return (
         <div className="timer">
-            {alert}
+            <div className="alert small-text">
+                {alert}
+            </div>
             {
-                clock ? <div>{clock}</div> : <div>{alert}</div>
+                clock && alert === '' ? <div>{clock}</div> : null
             }
         </div>
     )
