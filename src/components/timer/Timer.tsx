@@ -53,13 +53,14 @@ const Timer = () => {
                 })
         }
     }, [])
+
     useEffect(() => {
         setTimeout(() => setClock(formatTime()), 1000);
     }, [intervalBool]);
 
     return (
         <div className="timer">
-
+            {alert}
             {
                 clock ? <div>{clock}</div> : <div>{alert}</div>
             }
