@@ -1,6 +1,5 @@
 {
   "name": "trainee-interface",
-  "homepage": "/login",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
