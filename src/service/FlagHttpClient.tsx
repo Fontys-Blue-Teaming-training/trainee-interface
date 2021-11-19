@@ -4,7 +4,7 @@ export class FlagHttpClient {
     public baseUrl: string = apiConfig.url;
 
     public getFlags(scenarioId: any) {
-        const path = 'flag/';
+        const path = 'flag/team/';
 
         const headers = {
             "Content-Type": "application/json",

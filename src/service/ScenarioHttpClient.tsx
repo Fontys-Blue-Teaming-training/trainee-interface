@@ -36,4 +36,20 @@ export class ScenarioHttpClient {
                 .catch(reject);
         });
     }
+
+    public getCurrent(teamId: number) {
+        const path = 'scenario/current/' + teamId;
+        const headers = {
+            "Content-Type": "application/json",
+        }
+        return new Promise((resolve, reject) => {
+            fetch(this.baseUrl + path, {
+                method: 'GET',
+                headers: headers
+            })
+                .then((res) => res.json())
+                .then((data) => resolve(data))
+                .catch(reject);
+        });
+    }
 }

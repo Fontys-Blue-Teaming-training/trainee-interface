@@ -79,9 +79,8 @@ const Leaderboard = () => {
             let leaderboardTemp: LeaderBoardEntry[];
             let leaderboardArray: LeaderBoardEntry[] = [];
             leaderboardTemp = leaderboardData;
-            const timePassed = timer.getTime() / 1000;
             leaderboardTemp.forEach((item: LeaderBoardEntry, index: any) => {
-                if (timePassed < item.totalSeconds) {
+                if (timer > item.totalSeconds) {
                     const foundIndex = leaderboardArray.findIndex(x => x['teamId'] === item.teamId);
                     if (foundIndex > -1) {
                         leaderboardArray[foundIndex].points += item.points;
@@ -94,7 +93,7 @@ const Leaderboard = () => {
             leaderboardArray.sort(function (a: any, b: any) {
                 return b["points"] - a["points"];
             });
-            setLeaderboard(leaderboardArray as LeaderBoardEntry[]);
+            setLeaderboard(leaderboardArray);
         }, 1000);
     });
 

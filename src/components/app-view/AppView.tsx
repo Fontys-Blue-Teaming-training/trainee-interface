@@ -13,7 +13,6 @@ import './AppView.css';
 const AppView = () => {
     const { highscores, setHighscores } = useContext(TraineeInterfaceContext);
 
-
     return (
         <div className="app-wrapper">
             <div className="nav-wrapper">
@@ -26,7 +25,7 @@ const AppView = () => {
                         <Route path='/leaderboard' element={<Leaderboard />} />
                         <Route path='/highscores' element={<Highscores />} />
                         <Route path='/flags' element={<FlagsOverview />} />
-                        <Route path='/guide' element={<Guide />} />
+                        {/* <Route path='/guide' element={<Guide />} /> */}
                     </Routes>
                 </BrowserRouter>
             </div>

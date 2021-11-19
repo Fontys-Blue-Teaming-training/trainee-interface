@@ -1,14 +1,13 @@
-import { Button, Paper, TextField } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import { useContext, useEffect, useState } from 'react';
 import { TraineeInterfaceContext } from '../../context/TraineeInterfaceContext';
-import { Flag } from '../../model/Flag';
+import { FlagCompleted } from '../../model/FlagCompleted';
 import { FlagHttpClient } from '../../service/FlagHttpClient';
 import './FlagsOverview.css';
 
 const FlagsOverview = () => {
     const [flagInput, setFlagInput] = useState();
     const [alert, setAlert] = useState('');
-    const [submitPressed, setSubmitPressed] = useState(true);
     const { flags, setFlags } = useContext(TraineeInterfaceContext);
     const FlagClient = new FlagHttpClient();
 
@@ -17,23 +16,26 @@ const FlagsOverview = () => {
     }
 
     const submitFlag = () => {
-        const team = localStorage.getItem('team');
-        let id;
-
-        if (team) {
-            id = JSON.parse(team);
+        let teamObj;
+        try {
+            const team = localStorage.getItem('team');
+            if (team) {
+                teamObj = JSON.parse(team);
+            }
         }
-
+        catch (e) {
+            console.log(e);
+        }
         const flag = {
-            "teamId": id['id'],
+            "teamId": teamObj['id'],
             "flagCode": flagInput
         }
-        setSubmitPressed(true);
         FlagClient.submitFlag(flag)
             .then((res: any) => {
                 if (res['success']) {
-                    let array: any[];
+                    let array: FlagCompleted[];
                     array = res['message'];
+                    window.location.reload();
                 }
                 else {
                     setAlert(res['message']);
@@ -42,22 +44,31 @@ const FlagsOverview = () => {
     }
 
     useEffect(() => {
-        if (submitPressed) {
-            FlagClient.getFlags(1)
-                .then((res: any) => {
-                    if (res['success']) {
-                        let array: Flag[];
-                        array = res['message'];
-                        setFlags(array);
-                        //Add functionality to check input on completed flags
-                    }
-                    else {
-                        setAlert(res['message']);
-                    }
-                })
-            setSubmitPressed(false);
+        let teamObj;
+        try {
+            const team = localStorage.getItem('team');
+
+            if (team) {
+                teamObj = JSON.parse(team);
+            }
         }
-    })
+        catch (e) {
+            console.log(e);
+        }
+
+        FlagClient.getFlags(teamObj['id'])
+            .then((res: any) => {
+                if (res['success']) {
+                    let array: FlagCompleted[];
+                    array = res['message'];
+                    setFlags(array);
+
+                }
+                else {
+                    setAlert(res['message']);
+                }
+            })
+    }, [])
 
     return (
         <div className="wrapper">
@@ -70,18 +81,18 @@ const FlagsOverview = () => {
                     <TextField onChange={(event) => changeFlagInput(event.target.value)} className="flag-input" id="standard-basic" label="Insert Flag" variant="standard" />
                     <Button onClick={submitFlag} className="submit-flag">Submit</Button>
                     {
-                        flags.map((flag) => {
+                        flags.map((item) => {
                             return (
                                 <div className="flag">
                                     <label className="checkmark-container">
-                                        <input id={flag.id.toString()} type="checkbox" />
+                                        <input id={item.flag.id.toString()} type="checkbox" checked={item.isCompleted} />
                                         <span className="checkmark"></span>
                                     </label>
                                     <div className="flag-description">
-                                        {flag.description}
+                                        {item.flag.description}
                                     </div>
                                     <div className="flag-points">
-                                        {flag.points}
+                                        {item.flag.points}
                                     </div>
                                 </div>
                             )
