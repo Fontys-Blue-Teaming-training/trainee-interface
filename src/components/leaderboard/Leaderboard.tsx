@@ -76,9 +76,11 @@ const Leaderboard = () => {
                 scenarioClient.fetchLeaderBoard(res['message']['scenario']['id'])
                     .then((res: any) => {
                         if (res['success']) {
+                            console.log(res['message']);
                             let leaderboard: LeaderBoardEntry[];
                             leaderboard = res['message'];
                             setLeaderboardData(leaderboard);
+                            setFetchLeaderBoard(true);
                         }
                         else {
                             setAlert(res['message']);
@@ -90,7 +92,9 @@ const Leaderboard = () => {
 
 
     useEffect(() => {
-        setInterval(() => {
+        setTimeout(() => {
+
+            console.log('data', leaderboardData)
             let leaderboardTemp: LeaderBoardEntry[];
             let leaderboardArray: LeaderBoardEntry[] = [];
             leaderboardTemp = leaderboardData;
@@ -109,8 +113,11 @@ const Leaderboard = () => {
                 return b["points"] - a["points"];
             });
             setLeaderboard(leaderboardArray);
+            setFetchLeaderBoard(!fetchLeaderBoard);
+
+
         }, 1000);
-    }, []);
+    }, [fetchLeaderBoard]);
 
     //Todo: Get team score, set timer when training starts
 
