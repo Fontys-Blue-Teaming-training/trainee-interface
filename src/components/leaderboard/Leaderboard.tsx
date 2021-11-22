@@ -93,8 +93,6 @@ const Leaderboard = () => {
 
     useEffect(() => {
         setTimeout(() => {
-
-            console.log('data', leaderboardData)
             let leaderboardTemp: LeaderBoardEntry[];
             let leaderboardArray: LeaderBoardEntry[] = [];
             leaderboardTemp = leaderboardData;
@@ -114,7 +112,6 @@ const Leaderboard = () => {
             });
             setLeaderboard(leaderboardArray);
             setFetchLeaderBoard(!fetchLeaderBoard);
-
 
         }, 1000);
     }, [fetchLeaderBoard]);
