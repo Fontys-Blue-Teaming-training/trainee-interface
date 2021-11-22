@@ -59,16 +59,30 @@ const Highscores = () => {
     ];
 
     useEffect(() => {
-        scenarioHttpClient.getHighscores(1)
+        let team;
+        try {
+            const teamObj = localStorage.getItem('team');
+            if (teamObj) {
+                team = JSON.parse(teamObj);
+            }
+        }
+        catch (e) {
+            console.log(e);
+        }
+
+        scenarioHttpClient.getCurrent(team.id)
             .then((res: any) => {
-                let array: TeamHighScore[];
-                if (res['success']) {
-                    array = res['message'];
-                    setHighscores(array);
-                }
-                else {
-                    console.log('failed')
-                }
+                scenarioHttpClient.getHighscores(res['message']['scenario']['id'])
+                    .then((res: any) => {
+                        let array: TeamHighScore[];
+                        if (res['success']) {
+                            array = res['message'];
+                            setHighscores(array);
+                        }
+                        else {
+                            console.log('failed')
+                        }
+                    })
             })
     }, []);
 

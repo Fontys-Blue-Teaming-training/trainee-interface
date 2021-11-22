@@ -73,7 +73,7 @@ const Leaderboard = () => {
         }
         scenarioClient.getCurrent(team.id)
             .then((res: any) => {
-                scenarioClient.fetchLeaderBoard(res['message']['id'])
+                scenarioClient.fetchLeaderBoard(res['message']['scenario']['id'])
                     .then((res: any) => {
                         if (res['success']) {
                             let leaderboard: LeaderBoardEntry[];
