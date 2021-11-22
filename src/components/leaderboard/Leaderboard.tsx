@@ -95,7 +95,7 @@ const Leaderboard = () => {
         setTimeout(() => {
             let leaderboardTemp: LeaderBoardEntry[] = [];
             let leaderboardArray: LeaderBoardEntry[] = [];
-            leaderboardTemp = leaderboardData;
+            leaderboardTemp = JSON.parse(JSON.stringify(leaderboardData));
             leaderboardTemp.forEach((item: LeaderBoardEntry, index: any) => {
                 if (timer > item.totalSeconds) {
                     const foundIndex = leaderboardArray.findIndex(x => x['teamId'] === item.teamId);
