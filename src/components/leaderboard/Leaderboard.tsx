@@ -93,7 +93,7 @@ const Leaderboard = () => {
 
     useEffect(() => {
         setTimeout(() => {
-            let leaderboardTemp: LeaderBoardEntry[];
+            let leaderboardTemp: LeaderBoardEntry[] = [];
             let leaderboardArray: LeaderBoardEntry[] = [];
             leaderboardTemp = leaderboardData;
             leaderboardTemp.forEach((item: LeaderBoardEntry, index: any) => {
