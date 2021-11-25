@@ -20,6 +20,7 @@ export class ScenarioHttpClient {
     }
 
     public getHighscores(scenarioId: any) {
+
         const path = 'scenario/highscore/';
 
         const headers = {
@@ -35,9 +36,13 @@ export class ScenarioHttpClient {
                 .then((data) => resolve(data))
                 .catch(reject);
         });
+
+
+
     }
 
     public getCurrent(teamId: number) {
+
         const path = 'scenario/current/' + teamId;
         const headers = {
             "Content-Type": "application/json",
@@ -51,5 +56,7 @@ export class ScenarioHttpClient {
                 .then((data) => resolve(data))
                 .catch(reject);
         });
+
+
     }
 }

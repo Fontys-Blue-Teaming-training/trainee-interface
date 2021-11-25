@@ -25,7 +25,7 @@ const AppView = () => {
                         <Route path='/leaderboard' element={<Leaderboard />} />
                         <Route path='/highscores' element={<Highscores />} />
                         <Route path='/flags' element={<FlagsOverview />} />
-                        {/* <Route path='/guide' element={<Guide />} /> */}
+                        <Route path='/guide' element={<Guide />} />
                     </Routes>
                 </BrowserRouter>
             </div>
