@@ -24,4 +24,6 @@ export default interface ITraineeInterfaceContext {
     setCompleteFlag: React.Dispatch<React.SetStateAction<boolean>>;
     flagCompletedUpdate: boolean;
     setFlagCompletedUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+    started: boolean;
+    setStarted: React.Dispatch<React.SetStateAction<boolean>>;
 }

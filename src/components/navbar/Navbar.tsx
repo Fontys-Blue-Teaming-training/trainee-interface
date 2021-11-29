@@ -5,17 +5,7 @@ import './Navbar.css';
 
 const Navbar = () => {
     const { team, setTeam } = useContext(TraineeInterfaceContext);
-
-    useEffect(() => {
-        try {
-            const teamObj = localStorage.getItem('team');
-            if (teamObj)
-                setTeam(JSON.parse(teamObj));
-        }
-        catch (e) {
-            console.error(e);
-        }
-    }, [])
+    const { started, setStarted } = useContext(TraineeInterfaceContext);
 
     return (
         <div className="navbar">
@@ -26,10 +16,10 @@ const Navbar = () => {
             </div>
             <div className="navbar-buttons">
                 {
-                    !team.id ? <Button href="/login" className="nav-button">Login</Button> : null
+                    !team.id ? <Button href="/" className="nav-button">Login</Button> : null
                 }
                 {
-                    team.id ?
+                    team.id && started ?
                         <>
                             <Button href="/leaderboard" className="nav-button">Leaderboard</Button>
                             <Button href="/highscores" className="nav-button">Highscores</Button>

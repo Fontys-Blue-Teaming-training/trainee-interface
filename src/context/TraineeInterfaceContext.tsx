@@ -19,8 +19,10 @@ export const TraineeInterfaceProvider = (props: { children: ReactNode }) => {
     const [timer, setTimer] = useState(0);
     const [completeFlag, setCompleteFlag] = useState(false);
     const [flagCompletedUpdate, setFlagCompletedUpdate] = useState(false);
+    const [started, setStarted] = useState(false);
 
     const value = {
+        started, setStarted,
         flagCompletedUpdate, setFlagCompletedUpdate,
         completeFlag, setCompleteFlag,
         highscores, setHighscores,
