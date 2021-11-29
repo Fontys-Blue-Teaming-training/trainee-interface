@@ -3,15 +3,13 @@ import { useContext, useEffect, useState } from 'react';
 import { TraineeInterfaceContext } from '../../context/TraineeInterfaceContext';
 import { FlagCompleted } from '../../model/FlagCompleted';
 import { FlagHttpClient } from '../../service/FlagHttpClient';
-import { ScenarioHttpClient } from '../../service/ScenarioHttpClient';
 import './FlagsOverview.css';
 
 const FlagsOverview = () => {
     const [flagInput, setFlagInput] = useState();
     const [alert, setAlert] = useState('');
-    const { flags, setFlags } = useContext(TraineeInterfaceContext);
+    const { flags, setFlags, completeFlag, setCompleteFlag } = useContext(TraineeInterfaceContext);
     const FlagClient = new FlagHttpClient();
-    const scenarioClient = new ScenarioHttpClient();
 
     const changeFlagInput = (event: any) => {
         setFlagInput(event)
@@ -26,7 +24,7 @@ const FlagsOverview = () => {
             }
         }
         catch (e) {
-            console.log(e);
+            console.error(e);
         }
         const flag = {
             "teamId": teamObj['id'],
@@ -35,8 +33,7 @@ const FlagsOverview = () => {
         FlagClient.submitFlag(flag)
             .then((res: any) => {
                 if (res['success']) {
-                    let array: FlagCompleted[];
-                    array = res['message'];
+                    setCompleteFlag(true);
                     window.location.reload();
                 }
                 else {
@@ -55,7 +52,7 @@ const FlagsOverview = () => {
             }
         }
         catch (e) {
-            console.log(e);
+            console.error(e);
         }
         FlagClient.getFlags(teamObj['id'])
             .then((res: any) => {

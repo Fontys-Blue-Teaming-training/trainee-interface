@@ -13,7 +13,7 @@ import Timer from '../timer/Timer';
 
 const Leaderboard = () => {
 
-    const { leaderboard, setLeaderboard, leaderboardData, setLeaderboardData, timer } = useContext(TraineeInterfaceContext);
+    const { leaderboard, setLeaderboard, leaderboardData, setLeaderboardData, timer, flagCompletedUpdate } = useContext(TraineeInterfaceContext);
     const [alert, setAlert] = useState('');
     const [fetchLeaderBoard, setFetchLeaderBoard] = useState(false);
     const scenarioClient = new ScenarioHttpClient();
@@ -69,26 +69,31 @@ const Leaderboard = () => {
             }
         }
         catch (e) {
-            console.log(e);
+            console.error(e);
         }
-        scenarioClient.getCurrent(team.id)
-            .then((res: any) => {
-                scenarioClient.fetchLeaderBoard(res['message']['scenario']['id'])
-                    .then((res: any) => {
-                        if (res['success']) {
-                            console.log(res['message']);
-                            let leaderboard: LeaderBoardEntry[];
-                            leaderboard = res['message'];
-                            setLeaderboardData(leaderboard);
-                            setFetchLeaderBoard(true);
-                        }
-                        else {
-                            setAlert(res['message']);
-                        }
-                    });
-            })
-
-    }, []);
+        if (team) {
+            scenarioClient.getCurrent(team.id)
+                .then((res: any) => {
+                    if (res['success']) {
+                        scenarioClient.fetchLeaderBoard(res['message']['scenario']['id'])
+                            .then((res: any) => {
+                                if (res['success']) {
+                                    let leaderboard: LeaderBoardEntry[];
+                                    leaderboard = res['message'];
+                                    setLeaderboardData(leaderboard);
+                                    setFetchLeaderBoard(true);
+                                }
+                                else {
+                                    setAlert(res['message']);
+                                }
+                            });
+                    }
+                    else {
+                        setAlert(res['message'])
+                    }
+                });
+        }
+    }, [flagCompletedUpdate]);
 
 
     useEffect(() => {
@@ -125,8 +130,8 @@ const Leaderboard = () => {
             </div>
             <div className="body">
                 <div className="leaderboard body-flex">
+                    <div className="alert">{alert}</div>
                     <Timer />
-                    <div>{alert}</div>
                     {
                         leaderboard && leaderboard.length > 0 ?
                             <TableContainer sx={{ maxHeight: 440 }}>

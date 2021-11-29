@@ -1,5 +1,6 @@
 import { CurrentScenario } from "../model/CurrentScenario";
 import { FlagCompleted } from "../model/FlagCompleted";
+import { InfoMessage } from "../model/InfoMessage";
 import { LeaderBoardEntry } from "../model/LeaderboardEntry";
 import { Team } from "../model/Team";
 import { TeamHighScore } from "../model/TeamHighScore";
@@ -19,4 +20,8 @@ export default interface ITraineeInterfaceContext {
     setTimer: React.Dispatch<React.SetStateAction<number>>;
     currentScenario: CurrentScenario;
     setCurrentScenario: React.Dispatch<React.SetStateAction<CurrentScenario>>;
+    completeFlag: boolean;
+    setCompleteFlag: React.Dispatch<React.SetStateAction<boolean>>;
+    flagCompletedUpdate: boolean;
+    setFlagCompletedUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }

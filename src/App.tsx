@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import './App.css';
 import AppView from './components/app-view/AppView';
 

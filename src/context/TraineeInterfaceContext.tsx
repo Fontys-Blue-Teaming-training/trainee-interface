@@ -2,6 +2,7 @@ import { createContext, ReactNode, useState } from "react";
 import ITraineeInterfaceContext from "../interface/ITraineeInterfaceContext";
 import { CurrentScenario } from "../model/CurrentScenario";
 import { FlagCompleted } from "../model/FlagCompleted";
+import { InfoMessage } from "../model/InfoMessage";
 import { LeaderBoardEntry } from "../model/LeaderboardEntry";
 import { Team } from "../model/Team";
 import { TeamHighScore } from "../model/TeamHighScore";
@@ -16,8 +17,12 @@ export const TraineeInterfaceProvider = (props: { children: ReactNode }) => {
     const [leaderboardData, setLeaderboardData] = useState([] as LeaderBoardEntry[]);
     const [flags, setFlags] = useState([] as FlagCompleted[]);
     const [timer, setTimer] = useState(0);
+    const [completeFlag, setCompleteFlag] = useState(false);
+    const [flagCompletedUpdate, setFlagCompletedUpdate] = useState(false);
 
     const value = {
+        flagCompletedUpdate, setFlagCompletedUpdate,
+        completeFlag, setCompleteFlag,
         highscores, setHighscores,
         team, setTeam,
         leaderboard, setLeaderboard,

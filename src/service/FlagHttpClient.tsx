@@ -1,7 +1,7 @@
 import { apiConfig } from "../config/ApiConfig";
 
 export class FlagHttpClient {
-    public baseUrl: string = apiConfig.url;
+    public baseUrl: string = apiConfig.apiUrl;
 
     public getFlags(scenarioId: any) {
         const path = 'flag/team/';
@@ -15,7 +15,14 @@ export class FlagHttpClient {
                 method: 'GET',
                 headers: headers,
             })
-                .then((res) => res.json())
+                .then((res) => {
+                    if (res) {
+                        return res.json()
+                    }
+                    else {
+                        reject()
+                    }
+                })
                 .then((data) => resolve(data))
                 .catch(reject);
         });
@@ -34,7 +41,14 @@ export class FlagHttpClient {
                 headers: headers,
                 body: JSON.stringify(body)
             })
-                .then((res) => res.json())
+                .then((res) => {
+                    if (res) {
+                        return res.json()
+                    }
+                    else {
+                        reject()
+                    }
+                })
                 .then((data) => resolve(data))
                 .catch(reject);
         });

@@ -1,7 +1,7 @@
 import { apiConfig } from "../config/ApiConfig";
 
 export class TeamHttpClient {
-    public baseUrl: string = apiConfig.url;
+    public baseUrl: string = apiConfig.apiUrl;
 
     public Login(body: any) {
         const path = 'team';
@@ -16,9 +16,18 @@ export class TeamHttpClient {
                 headers: headers,
                 body: JSON.stringify(body)
             })
-                .then((res) => res.json())
+                .then((res) => {
+                    if (res) {
+                        return res.json()
+                    }
+                    else {
+                        reject()
+                    }
+                })
                 .then((data) => resolve(data))
-                .catch(reject);
+                .catch((err) => {
+                    console.error(err);
+                });
         });
     }
 }

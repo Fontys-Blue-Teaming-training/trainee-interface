@@ -3,13 +3,15 @@ import { useContext, useState } from 'react';
 import { TraineeInterfaceContext } from '../../context/TraineeInterfaceContext';
 import { Team } from '../../model/Team';
 import { TeamHttpClient } from '../../service/TeamHttpClient';
+import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
-    const { team, setTeam } = useContext(TraineeInterfaceContext);
+    const { setTeam } = useContext(TraineeInterfaceContext);
     const [teamName, setTeamName] = useState('');
     const [alert, setAlert] = useState('');
     const teamClient = new TeamHttpClient();
+    let navigate = useNavigate()
 
     const login = () => {
         if (teamName !== '') {
@@ -22,6 +24,7 @@ const Login = () => {
                         const team = new Team(res['message']['id'], res['message']['name']);
                         setTeam(team);
                         localStorage.setItem('team', JSON.stringify(team));
+                        navigate('../lobby');
                     }
                     else {
                         setAlert(res['message']);

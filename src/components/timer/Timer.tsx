@@ -5,7 +5,7 @@ import './Timer.css';
 
 
 const Timer = () => {
-    const { timer, setTimer, team, setTeam, currentScenario, setCurrentScenario } = useContext(TraineeInterfaceContext);
+    const { setTimer, currentScenario, setCurrentScenario } = useContext(TraineeInterfaceContext);
     const [alert, setAlert] = useState('');
     const [clock, setClock] = useState('');
     const [intervalBool, setIntervalBool] = useState(false);
@@ -34,7 +34,7 @@ const Timer = () => {
             }
         }
         catch (e) {
-            console.log(e);
+            console.error(e);
         }
 
         if (team) {
@@ -62,9 +62,6 @@ const Timer = () => {
 
     return (
         <div className="timer">
-            <div className="alert small-text">
-                {alert}
-            </div>
             {
                 clock && alert === '' ? <div>{clock}</div> : null
             }

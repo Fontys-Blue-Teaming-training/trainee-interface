@@ -1,7 +1,7 @@
 import { apiConfig } from "../config/ApiConfig";
 
 export class ScenarioHttpClient {
-    public baseUrl: string = apiConfig.url;
+    public baseUrl: string = apiConfig.apiUrl;
 
     public fetchLeaderBoard(id: number) {
         const path = 'scenario/leaderboard/' + id;
@@ -13,7 +13,14 @@ export class ScenarioHttpClient {
                 method: 'GET',
                 headers: headers
             })
-                .then((res) => res.json())
+                .then((res) => {
+                    if (res) {
+                        return res.json()
+                    }
+                    else {
+                        reject()
+                    }
+                })
                 .then((data) => resolve(data))
                 .catch(reject);
         });
@@ -32,7 +39,14 @@ export class ScenarioHttpClient {
                 method: 'GET',
                 headers: headers,
             })
-                .then((res) => res.json())
+                .then((res) => {
+                    if (res) {
+                        return res.json()
+                    }
+                    else {
+                        reject()
+                    }
+                })
                 .then((data) => resolve(data))
                 .catch(reject);
         });
@@ -52,7 +66,14 @@ export class ScenarioHttpClient {
                 method: 'GET',
                 headers: headers
             })
-                .then((res) => res.json())
+                .then((res) => {
+                    if (res) {
+                        return res.json()
+                    }
+                    else {
+                        reject()
+                    }
+                })
                 .then((data) => resolve(data))
                 .catch(reject);
         });

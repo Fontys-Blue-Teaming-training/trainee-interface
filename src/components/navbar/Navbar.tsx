@@ -1,5 +1,5 @@
 import { Button } from '@material-ui/core';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { TraineeInterfaceContext } from '../../context/TraineeInterfaceContext';
 import './Navbar.css';
 
@@ -13,7 +13,7 @@ const Navbar = () => {
                 setTeam(JSON.parse(teamObj));
         }
         catch (e) {
-            console.log(e);
+            console.error(e);
         }
     }, [])
 
