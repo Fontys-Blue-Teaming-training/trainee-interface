@@ -52,8 +52,10 @@ export const WebSocketClient = () => {
     }, [completeFlag])
 
     useEffect(() => {
-        const message = new InfoMessage(InfoMessageType.TEAM_CREATED, team.name);
-        sendMessage(JSON.stringify(message));
+        if (team.id === undefined) {
+            const message = new InfoMessage(InfoMessageType.TEAM_CREATED, team.name);
+            sendMessage(JSON.stringify(message));
+        }
     }, [team])
 
 
