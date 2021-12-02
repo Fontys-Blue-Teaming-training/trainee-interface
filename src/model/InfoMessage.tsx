@@ -1,11 +1,11 @@
 import { InfoMessageType } from "./InfoMessageType";
 
 export class InfoMessage {
-    infoType: InfoMessageType;
+    type: InfoMessageType;
     message: string;
 
-    constructor(infoType: InfoMessageType, message: string) {
-        this.infoType = infoType;
+    constructor(type: InfoMessageType, message: string) {
+        this.type = type;
         this.message = message;
     }
 
