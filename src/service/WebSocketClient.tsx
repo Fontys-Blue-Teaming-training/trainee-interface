@@ -8,8 +8,7 @@ import { InfoMessageType } from '../model/InfoMessageType';
 export const WebSocketClient = () => {
     //Public API that will echo messages sent to it back to the client
     const [socketUrl, setSocketUrl] = useState(apiConfig.websocketUrl);
-    const { completeFlag, setCompleteFlag, flagCompletedUpdate, setFlagCompletedUpdate } = useContext(TraineeInterfaceContext);
-
+    const { completeFlag, setCompleteFlag, flagCompletedUpdate, setFlagCompletedUpdate, team } = useContext(TraineeInterfaceContext);
     const {
         sendMessage,
         lastMessage,
@@ -52,6 +51,9 @@ export const WebSocketClient = () => {
         setCompleteFlag(false);
     }, [completeFlag])
 
+    useEffect(() => {
+        sendMessage(JSON.stringify(team));
+    }, [team])
 
 
     const connectionStatus = {
