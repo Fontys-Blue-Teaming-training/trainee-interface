@@ -31,7 +31,7 @@ export const WebSocketClient = () => {
                     case "SCENARIO STARTED":
                         localStorage.setItem('start', "true");
                         console.log('scenario start');
-                        window.location.href = 'http://192.168.1.2/flags';
+                        window.location.href = 'http://192.168.1.21/flags';
 
                         break;
                     case "FLAG COMPLETED":
