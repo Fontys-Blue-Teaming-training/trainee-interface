@@ -1,118 +1,101 @@
 import './Guide.css';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+import { Button, TextField } from '@material-ui/core';
 import { GuideHttpClient } from '../../service/GuideHttpClient';
+import { FlagHttpClient } from '../../service/FlagHttpClient';
+import { FlagCompleted } from '../../model/FlagCompleted';
 import { TraineeInterfaceContext } from '../../context/TraineeInterfaceContext';
 import { useContext, useEffect, useState } from 'react';
-import { Hint } from "../../model/Hint";
+import { DisplayHint } from "../../model/DisplayHint";
 
 
 const Guide = () => {
-    const [hintNr, setHintNr] = useState(1);
-    const [elementLabel, setElementLabel] = useState('test');
-    const [firstHintId, setFirstHintId] = useState(0);
-    const [lastHintId, setLastHintId] = useState(0);
+    const [teamId, setTeamId] = useState(0);
+    const [flagId, setFlagId] = useState(0);
+    const [alert, setAlert] = useState('');
     const { hint, setHint } = useContext(TraineeInterfaceContext);
+    const { flags, setFlags } = useContext(TraineeInterfaceContext);
     const guideHttpClient = new GuideHttpClient();
- 
+    const FlagClient = new FlagHttpClient();
 
-    // decrement
-    const decrement = () => {
-      if(hintNr >= firstHintId + 1)
-      {
-        setHintNr(hintNr-1);
-        getArrayElement();
-        console.log('After decrease: ' + hintNr);
-        console.log(elementLabel)
+    const getCurrentHint = (id: number) => {
+      //setIds(id);
+      let teamObj;
+      try {
+          const team = localStorage.getItem('team');  
+
+          if (team) {
+            teamObj = JSON.parse(team);
+            console.log("TeamId before set up: " + teamObj['id']);
+              
+          }
       }
-      else
-      {
-        console.log('Number is 1')
+      catch (e) {
+        console.log(e);
+      }
+      if (teamObj['id'] !== 0 && id !== 0) {
+          guideHttpClient.getFlagHint(teamObj['id'] ,id)
+              .then((res: any) => {
+                  if (res['success']) {
+                      const hint = new DisplayHint(res['message']['hintText'], res['message']['imageUrl']);
+                      setHint(hint);
+                      //localStorage.setItem('hint', JSON.stringify(hint));
+                  }
+                  else {
+                      setAlert(res['message']);
+                  }
+          })
+      }
+        
+      else {
+          setAlert('Please fill in a team name before logging in');
       }
     }
+    const setIds = (id: number) => {
+      let teamObj;
+      try {
+          const team = localStorage.getItem('team');  
 
-    // increment
-    const increment = () => {
-      if(hintNr <= lastHintId - 1)
-      {
-        setHintNr(hintNr+1);
-        getArrayElement();
-        console.log('After increase: ' + hintNr);
-        console.log(elementLabel)
+          if (team) {
+            teamObj = JSON.parse(team);
+            console.log("TeamId before set up: " + teamObj['id']);
+              
+          }
       }
-      else
-      {
-        console.log('Number is Max')
+      catch (e) {
+        console.log(e);
       }
+      console.log("FlagId before set up: " + id);
+      setTeamId(teamObj['id']);
+      console.log("TeamId after set up: " + teamId);
+      setFlagId(id);
+      console.log("FlagId after set up: " + flagId);
     }
 
-    // testing array
-    const columns = [
-      {
-          id: 1,
-          label: '123',
-      },
-      {
-          id: 2,
-          label: 'Points',
-      },
-      {
-          id: 3,
-          label: 'Amount',
-      },
-      {
-          id: 4,
-          label: 'Test',
-      },
-      {
-          id: 5,
-          label: 'a a a',
-      },
-      {
-          id: 6,
-          label: 'b b b',
-      },
-      {
-          id: 7,
-          label: 'TSM TSM TSM',
-      },
-      {
-          id: 8,
-          label: 'Job I need the backend',
-      },
-      {
-          id: 9,
-          label: 'Bulgaria numba one',
-      },
-      {
-          id: 10,
-          label: 'Social credit +++',
+    useEffect(() => {
+      let teamObj;
+      try {
+          const team = localStorage.getItem('team');
+
+          if (team) {
+              teamObj = JSON.parse(team);
+          }
       }
-    ];
-    
-    // set label and image
-    const getArrayElement = () => {
-      columns.forEach(element => {
-        if(element.id === hintNr)
-        {
-          setElementLabel(element.label);
-          // console.log(elementLabel) 
-          // console.log(element.label)
-        }
-      });
+      catch (e) {
+          console.log(e);
+      }
+      FlagClient.getFlags(teamObj['id'])
+          .then((res: any) => {
+              if (res['success']) {
+                  let array: FlagCompleted[];
+                  array = res['message'];
+                  setFlags(array);
 
-      
-
-    }
-
-    // get the first and last hint ids of a scenario
-    const setFirstAndLastHintIds = () => {
-      // to be changed with appropriate call
-      setFirstHintId(1);
-
-      // to be changed with appropriate call
-      setLastHintId(10);
-    }
+              }
+              else {
+                  setAlert(res['message']);
+              }
+          })
+  }, [])
 
     // Get current scenario id and increment number
     // Display scenerio and add time to the team
@@ -125,13 +108,30 @@ const Guide = () => {
                 <h1>Guide</h1>
             </div>
             <div className="body">
-                <div className="body-flex">
-                  <p>{hintNr}|</p>
-                  {/* <p>{columns[hintNr].label}</p> */}
-                  <p>{elementLabel}</p>
-                  <img src="" alt=""/>
-                  <Button onClick={decrement} variant="outlined">Previous</Button>
-                  <Button onClick={increment} variant="outlined">Next</Button>
+                <div className="body-flex flags">
+                    <div className="alert">{alert}</div>
+                    
+                </div>
+                <div className="body-flex width">
+                {
+                        flags.map((item) => {
+                            return (
+                                <div className="flag">
+                                    <div className="flag-description">
+                                        {item.flag.description}
+                                    </div>
+                                    <div className="flag-points">
+                                        {item.flag.points}
+                                    </div>
+                                    <label className="checkmark-container">
+                                        <Button onClick={(e) => getCurrentHint(item.flag.id)} variant="outlined">Outlined</Button>
+                                    </label>
+                                </div>
+                            )
+                        })
+                    }
+                  <p>{hint.hintText}</p>
+                  <img src={hint.imageUrl} alt=""/>
                 </div>
             </div>
         </div>

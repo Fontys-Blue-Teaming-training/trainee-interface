@@ -1,6 +1,6 @@
 import { CurrentScenario } from "../model/CurrentScenario";
 import { FlagCompleted } from "../model/FlagCompleted";
-import { Hint } from "../model/Hint";
+import { DisplayHint } from "../model/DisplayHint";
 import { LeaderBoardEntry } from "../model/LeaderboardEntry";
 import { Team } from "../model/Team";
 import { TeamHighScore } from "../model/TeamHighScore";
@@ -20,6 +20,6 @@ export default interface ITraineeInterfaceContext {
     setTimer: React.Dispatch<React.SetStateAction<number>>;
     currentScenario: CurrentScenario;
     setCurrentScenario: React.Dispatch<React.SetStateAction<CurrentScenario>>;
-    hint: Hint;
-    setHint: React.Dispatch<React.SetStateAction<Hint>>;
+    hint: DisplayHint;
+    setHint: React.Dispatch<React.SetStateAction<DisplayHint>>;
 }

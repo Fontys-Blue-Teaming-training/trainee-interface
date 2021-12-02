@@ -2,7 +2,7 @@ import { createContext, ReactNode, useState } from "react";
 import ITraineeInterfaceContext from "../interface/ITraineeInterfaceContext";
 import { CurrentScenario } from "../model/CurrentScenario";
 import { FlagCompleted } from "../model/FlagCompleted";
-import { Hint } from "../model/Hint";
+import { DisplayHint } from "../model/DisplayHint";
 import { LeaderBoardEntry } from "../model/LeaderboardEntry";
 import { Team } from "../model/Team";
 import { TeamHighScore } from "../model/TeamHighScore";
@@ -18,7 +18,7 @@ export const TraineeInterfaceProvider = (props: { children: ReactNode }) => {
     const [flags, setFlags] = useState([] as FlagCompleted[]);
     const [timer, setTimer] = useState(0);
     // hint useState
-    const [hint, setHint] = useState({} as Hint);
+    const [hint, setHint] = useState({} as DisplayHint);
 
     const value = {
         highscores, setHighscores,

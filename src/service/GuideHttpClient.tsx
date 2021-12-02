@@ -21,17 +21,17 @@ export class GuideHttpClient {
     });
   }
 
-  public getHintById(scenarioId: any, id: any) {
-    const path = 'hint/';
+  public getFlagHint(teamId: any, flagId: any) {
+    const path = 'hint/getflaghint/';
 
     const headers = {
         "Content-Type": "application/json",
     }
 
     return new Promise((resolve, reject) => {
-        fetch(this.baseUrl + path + scenarioId + '/' + id, {
+        fetch(this.baseUrl + path + teamId + '/' + flagId + '/', {
             method: 'GET',
-            headers: headers,
+            headers: headers
         })
             .then((res) => res.json())
             .then((data) => resolve(data))
