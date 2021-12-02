@@ -11,7 +11,7 @@ const Login = () => {
     const [teamName, setTeamName] = useState('');
     const [alert, setAlert] = useState('');
     const teamClient = new TeamHttpClient();
-    let navigate = useNavigate()
+    let navigate = useNavigate();
 
     const login = () => {
         if (teamName !== '') {

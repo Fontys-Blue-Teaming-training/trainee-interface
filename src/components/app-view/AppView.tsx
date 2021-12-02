@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { TraineeInterfaceContext } from '../../context/TraineeInterfaceContext';
+import WebSocketClient from '../../service/WebSocketClient';
 import FlagsOverview from '../flags-overview/FlagsOverview';
 import Guide from '../guide/Guide';
 import Highscores from '../highscores/Highscores';
