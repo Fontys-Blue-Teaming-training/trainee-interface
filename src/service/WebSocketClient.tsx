@@ -4,10 +4,12 @@ import { apiConfig } from '../config/ApiConfig';
 import { TraineeInterfaceContext } from '../context/TraineeInterfaceContext';
 import { InfoMessage } from '../model/InfoMessage';
 import { InfoMessageType } from '../model/InfoMessageType';
+import { useNavigate } from 'react-router-dom';
 
 export const WebSocketClient = () => {
     //Public API that will echo messages sent to it back to the client
     const [socketUrl, setSocketUrl] = useState(apiConfig.websocketUrl);
+    let navigate = useNavigate();
     const { completeFlag, setCompleteFlag, flagCompletedUpdate, setFlagCompletedUpdate, team } = useContext(TraineeInterfaceContext);
     const {
         sendMessage,
@@ -29,6 +31,8 @@ export const WebSocketClient = () => {
                     case "SCENARIO STARTED":
                         localStorage.setItem('start', "true");
                         console.log('scenario start');
+                        navigate('../flags');
+
                         break;
                     case "FLAG COMPLETED":
                         console.log('flag complete');
