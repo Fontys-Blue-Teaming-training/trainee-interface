@@ -45,14 +45,15 @@ export const WebSocketClient = () => {
 
     useEffect(() => {
         if (completeFlag) {
-            const message = new InfoMessage(InfoMessageType.INFO, "FLAG COMPLETED");
+            const message = new InfoMessage(InfoMessageType.FLAG_COMPLETED, "FLAG COMPLETED");
             sendMessage(JSON.stringify(message));
         }
         setCompleteFlag(false);
     }, [completeFlag])
 
     useEffect(() => {
-        sendMessage(JSON.stringify(team));
+        const message = new InfoMessage(InfoMessageType.TEAM_CREATED, team.name);
+        sendMessage(JSON.stringify(message));
     }, [team])
 
 
