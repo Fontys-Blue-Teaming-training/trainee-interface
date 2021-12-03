@@ -1,11 +1,12 @@
 export class TeamHighScore {
   teamName: string;
-  points: number;
+  totalSeconds: number;
   amountOfFlags: number;
+  timer: string = "00:00:00";
 
-  constructor(teamName: string, points: number, amountOfFlags: number) {
+  constructor(teamName: string, totalSeconds: number, amountOfFlags: number) {
     this.teamName = teamName;
-    this.points = points;
+    this.totalSeconds = totalSeconds;
     this.amountOfFlags = amountOfFlags;
   }
 }

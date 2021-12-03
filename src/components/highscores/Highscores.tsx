@@ -15,6 +15,7 @@ const Highscores = () => {
     const { highscores, setHighscores } = useContext(TraineeInterfaceContext);
     const [alert, setAlert] = useState('');
     const scenarioHttpClient = new ScenarioHttpClient();
+    const [startDate, setStartDate] = useState(new Date);
 
     const StyledTableRow = styled(TableRow)(({ theme }) => ({
         '&:nth-of-type(even)': {
@@ -59,6 +60,17 @@ const Highscores = () => {
         }
     ];
 
+
+    const formatTime = (totalSeconds: number) => {
+        const getHours = `0${Math.floor(totalSeconds / 3600)}`.slice(-2);
+        let remainingSeconds = totalSeconds % 3600;
+        const getMinutes = `0${Math.floor(remainingSeconds / 60)}`.slice(-2);
+        remainingSeconds = remainingSeconds % 60;
+        const getSeconds = `0${Math.floor(remainingSeconds)}`.slice(-2);
+
+        return `${getHours}:${getMinutes}:${getSeconds}`
+    }
+
     useEffect(() => {
         let team;
         try {
@@ -74,11 +86,15 @@ const Highscores = () => {
             scenarioHttpClient.getCurrent(team.id)
                 .then((res: any) => {
                     if (res['success']) {
+                        setStartDate(new Date(res['message']['startTime']));
                         scenarioHttpClient.getHighscores(res['message']['scenario']['id'])
                             .then((res: any) => {
                                 let array: TeamHighScore[];
                                 if (res['success']) {
                                     array = res['message'];
+                                    array.forEach((highscore) => {
+                                        highscore.timer = formatTime(highscore.totalSeconds);
+                                    });
                                     setHighscores(array);
                                 }
                                 else {
@@ -127,10 +143,10 @@ const Highscores = () => {
                                                                 {row.teamName}
                                                             </StyledTableCell>
                                                             <StyledTableCell size="small">
-                                                                {row.points}
+                                                                {row.amountOfFlags}
                                                             </StyledTableCell>
                                                             <StyledTableCell size="small">
-                                                                {row.amountOfFlags}
+                                                                {row.timer}
                                                             </StyledTableCell>
                                                         </StyledTableRow>
                                                     );
