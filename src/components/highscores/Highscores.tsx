@@ -143,7 +143,7 @@ const Highscores = () => {
                                                                 {row.teamName}
                                                             </StyledTableCell>
                                                             <StyledTableCell size="small">
-                                                                {row.amountOfFlags}
+                                                                {row.points}
                                                             </StyledTableCell>
                                                             <StyledTableCell size="small">
                                                                 {row.timer}

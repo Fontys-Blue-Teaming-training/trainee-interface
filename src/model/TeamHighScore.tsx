@@ -4,9 +4,9 @@ export class TeamHighScore {
   points: number;
   timer: string = "00:00:00";
 
-  constructor(teamName: string, totalSeconds: number, amountOfFlags: number) {
+  constructor(teamName: string, totalSeconds: number, points: number) {
     this.teamName = teamName;
     this.totalSeconds = totalSeconds;
-    this.points = amountOfFlags;
+    this.points = points;
   }
 }
