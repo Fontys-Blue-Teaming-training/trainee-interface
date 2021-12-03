@@ -45,15 +45,15 @@ const Highscores = () => {
             maxWidth: 150
         },
         {
-            id: 'points',
-            label: 'Points',
+            id: 'amountOfFlags',
+            label: 'Amount of flags',
             minWidth: 100,
             maxWidth: 150
 
         },
         {
-            id: 'amountOfFlags',
-            label: 'Amount of flags',
+            id: 'completionTime',
+            label: 'Completion Times',
             minWidth: 100,
             maxWidth: 150
 
@@ -143,7 +143,7 @@ const Highscores = () => {
                                                                 {row.teamName}
                                                             </StyledTableCell>
                                                             <StyledTableCell size="small">
-                                                                {row.points}
+                                                                {row.amountOfFlags}
                                                             </StyledTableCell>
                                                             <StyledTableCell size="small">
                                                                 {row.timer}
