@@ -7,6 +7,11 @@ const Navbar = () => {
     const { team, setTeam } = useContext(TraineeInterfaceContext);
     const { started, setStarted } = useContext(TraineeInterfaceContext);
 
+    const logOut = () => {
+        localStorage.removeItem('start');
+        localStorage.removeItem('team');
+    }
+
     return (
         <div className="navbar">
             <div className="logo">
@@ -25,6 +30,7 @@ const Navbar = () => {
                             <Button href="/highscores" className="nav-button">Highscores</Button>
                             <Button href="/flags" className="nav-button">Flags</Button>
                             <Button href="/guide" className="nav-button">Guide</Button>
+                            <Button onClick={logOut} className="nav-button">Guide</Button>
                         </>
                         :
                         null
