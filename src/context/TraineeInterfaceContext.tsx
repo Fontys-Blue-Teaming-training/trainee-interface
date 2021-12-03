@@ -2,7 +2,11 @@ import { createContext, ReactNode, useState } from "react";
 import ITraineeInterfaceContext from "../interface/ITraineeInterfaceContext";
 import { CurrentScenario } from "../model/CurrentScenario";
 import { FlagCompleted } from "../model/FlagCompleted";
+<<<<<<< HEAD
 import { InfoMessage } from "../model/InfoMessage";
+=======
+import { DisplayHint } from "../model/DisplayHint";
+>>>>>>> fa0949141d1a2aba642228cb61432dcc10ba7509
 import { LeaderBoardEntry } from "../model/LeaderboardEntry";
 import { Team } from "../model/Team";
 import { TeamHighScore } from "../model/TeamHighScore";
@@ -17,9 +21,14 @@ export const TraineeInterfaceProvider = (props: { children: ReactNode }) => {
     const [leaderboardData, setLeaderboardData] = useState([] as LeaderBoardEntry[]);
     const [flags, setFlags] = useState([] as FlagCompleted[]);
     const [timer, setTimer] = useState(0);
+<<<<<<< HEAD
     const [completeFlag, setCompleteFlag] = useState(false);
     const [flagCompletedUpdate, setFlagCompletedUpdate] = useState(false);
     const [started, setStarted] = useState(false);
+=======
+    // hint useState
+    const [hint, setHint] = useState({} as DisplayHint);
+>>>>>>> fa0949141d1a2aba642228cb61432dcc10ba7509
 
     const value = {
         started, setStarted,
@@ -31,7 +40,8 @@ export const TraineeInterfaceProvider = (props: { children: ReactNode }) => {
         flags, setFlags,
         leaderboardData, setLeaderboardData,
         timer, setTimer,
-        currentScenario, setCurrentScenario
+        currentScenario, setCurrentScenario,
+        hint, setHint,
     }
 
     return (

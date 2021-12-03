@@ -3,7 +3,7 @@ import { apiConfig } from "../config/ApiConfig";
 export class FlagHttpClient {
     public baseUrl: string = apiConfig.apiUrl;
 
-    public getFlags(scenarioId: any) {
+    public getFlags(teamId: any) {
         const path = 'flag/team/';
 
         const headers = {
@@ -11,7 +11,7 @@ export class FlagHttpClient {
         }
 
         return new Promise((resolve, reject) => {
-            fetch(this.baseUrl + path + scenarioId, {
+            fetch(this.baseUrl + path + teamId, {
                 method: 'GET',
                 headers: headers,
             })
