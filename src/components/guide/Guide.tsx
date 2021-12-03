@@ -110,8 +110,6 @@ const Guide = () => {
             <div className="body">
                 <div className="body-flex flags">
                     <div className="alert">{alert}</div>
-                    
-                </div>
                 <div className="body-flex width">
                 {
                         flags.map((item) => {
@@ -130,8 +128,13 @@ const Guide = () => {
                             )
                         })
                     }
-                  <p>{hint.hintText}</p>
-                  <img src={hint.imageUrl} alt=""/>
+                    <div>
+                      <p>{hint.hintText}</p>
+                    </div>
+                    <div>
+                      <img src={hint.imageUrl} alt=""/>
+                    </div>
+                  </div>
                 </div>
             </div>
         </div>
