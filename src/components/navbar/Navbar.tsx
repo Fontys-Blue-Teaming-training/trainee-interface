@@ -1,18 +1,16 @@
 import { Button } from '@material-ui/core';
 import { useContext, useEffect } from 'react';
 import { TraineeInterfaceContext } from '../../context/TraineeInterfaceContext';
-import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
     const { team, setTeam } = useContext(TraineeInterfaceContext);
     const { started, setStarted } = useContext(TraineeInterfaceContext);
-    let navigate = useNavigate();
 
     const logOut = () => {
         localStorage.removeItem('start');
         localStorage.removeItem('team');
-        navigate('../');
+        window.location.href = 'http://192.168.1.21/';
     }
 
     return (
