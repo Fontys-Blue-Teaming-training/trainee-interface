@@ -98,7 +98,7 @@ const Highscores = () => {
                                     setHighscores(array);
                                 }
                                 else {
-                                    setAlert(res['message'])
+                                    setAlert(res['message']);
                                 }
                             })
                     }
