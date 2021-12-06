@@ -73,7 +73,7 @@ export const WebSocketClient = () => {
     }, [team])
 
     useEffect(() => {
-        if (connectionStatus === 'Closed' || connectionStatus === 'Closing' || connectionStatus === 'Uninstantiated') {
+        while (connectionStatus !== 'Open') {
             connect();
         }
         console.log('Connection status changed:', connectionStatus)
