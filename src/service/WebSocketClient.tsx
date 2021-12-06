@@ -10,7 +10,7 @@ export const WebSocketClient = () => {
     //Public API that will echo messages sent to it back to the client
     const [socketUrl, setSocketUrl] = useState(apiConfig.websocketUrl);
     const { completeFlag, setCompleteFlag, flagCompletedUpdate, setFlagCompletedUpdate, team } = useContext(TraineeInterfaceContext);
-
+    const [retryConnect, setRetryConnect] = useState(false);
     const {
         sendMessage,
         lastMessage,
@@ -74,18 +74,14 @@ export const WebSocketClient = () => {
 
     useEffect(() => {
         const status = connectionStatus;
-        // const interval = setInterval(() => {
-        //     if (status === 'Closed' || status === 'Closing' || status === 'Uninstantiated') {
-        //         connect();
-        //     }
-
-        // }, 1000)
         setTimeout(() => {
-            console.log('Connection status changed:', status);
+            if (status === 'Closed' || status === 'Closing' || status === 'Uninstantiated' || status === 'Connecting') {
+                connect();
+                console.log(status);
+                setRetryConnect(!retryConnect);
+            }
         }, 1000)
-
-        // return () => clearInterval(interval);
-    }, [])
+    }, [retryConnect])
 
 
 
