@@ -74,7 +74,9 @@ export const WebSocketClient = () => {
 
     useEffect(() => {
         while (connectionStatus !== 'Open') {
-            connect();
+            setTimeout(() => {
+                connect();
+            }, 1000)
         }
         console.log('Connection status changed:', connectionStatus)
     }, [connectionStatus])
