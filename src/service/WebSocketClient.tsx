@@ -16,7 +16,6 @@ export const WebSocketClient = () => {
         lastMessage,
         readyState,
     } = useWebSocket(socketUrl, {
-        onOpen: () => console.log('opened'),
         shouldReconnect: (closeEvent) => true,
     });
 
