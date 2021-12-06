@@ -15,7 +15,10 @@ export const WebSocketClient = () => {
         sendMessage,
         lastMessage,
         readyState,
-    } = useWebSocket(socketUrl);
+    } = useWebSocket(socketUrl, {
+        onOpen: () => console.log('opened'),
+        shouldReconnect: (closeEvent) => true,
+    });
 
     const connect = useCallback(() => {
         setSocketUrl(apiConfig.websocketUrl);
@@ -71,19 +74,6 @@ export const WebSocketClient = () => {
             sendMessage(JSON.stringify(message));
         }
     }, [team])
-
-    useEffect(() => {
-        const status = connectionStatus;
-        setTimeout(() => {
-            if (status === 'Closed' || status === 'Closing' || status === 'Uninstantiated' || status === 'Connecting') {
-                connect();
-                console.log(status);
-                setRetryConnect(!retryConnect);
-            }
-        }, 1000)
-    }, [retryConnect])
-
-
 
     return (
         null
