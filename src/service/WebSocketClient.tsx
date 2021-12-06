@@ -73,15 +73,14 @@ export const WebSocketClient = () => {
     }, [team])
 
     useEffect(() => {
+        const status = connectionStatus;
         const interval = setInterval(() => {
-            if (connectionStatus === 'Closed' || connectionStatus === 'Closing' || connectionStatus === 'Uninstantiated') {
+            if (status === 'Closed' || status === 'Closing' || status === 'Uninstantiated') {
                 connect();
             }
-            console.log('Connection status changed:', connectionStatus);
+            console.log('Connection status changed:', status);
         }, 1000)
-
         return () => clearInterval(interval);
-
     }, [])
 
 
