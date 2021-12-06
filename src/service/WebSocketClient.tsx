@@ -19,8 +19,16 @@ export const WebSocketClient = () => {
 
     const connect = useCallback(() => {
         setSocketUrl(apiConfig.websocketUrl);
-        sendMessage('connect');
+
     }, []);
+
+    const connectionStatus = {
+        [ReadyState.CONNECTING]: 'Connecting',
+        [ReadyState.OPEN]: 'Open',
+        [ReadyState.CLOSING]: 'Closing',
+        [ReadyState.CLOSED]: 'Closed',
+        [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
+    }[readyState];
 
     useEffect(() => {
         if (lastMessage) {
@@ -64,14 +72,14 @@ export const WebSocketClient = () => {
         }
     }, [team])
 
+    useEffect(() => {
+        if (connectionStatus === 'Closed' || connectionStatus === 'Closing' || connectionStatus === 'Uninstantiated') {
+            connect();
+        }
+        console.log('Connection status changed:', connectionStatus)
+    }, [connectionStatus])
 
-    const connectionStatus = {
-        [ReadyState.CONNECTING]: 'Connecting',
-        [ReadyState.OPEN]: 'Open',
-        [ReadyState.CLOSING]: 'Closing',
-        [ReadyState.CLOSED]: 'Closed',
-        [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
-    }[readyState];
+
 
     return (
         null
