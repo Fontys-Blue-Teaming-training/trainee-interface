@@ -42,11 +42,11 @@ const AppView = () => {
                     <Routes>
                         <Route path='/' element={<Login />} />
                         <Route path='/lobby' element={<Lobby />} />
+                        <Route path='/highscores' element={<Highscores />} />
                         {
                             started ?
                                 <>
                                     <Route path='/leaderboard' element={<Leaderboard />} />
-                                    <Route path='/highscores' element={<Highscores />} />
                                     <Route path='/flags' element={<FlagsOverview />} />
                                     <Route path='/guide' element={<Guide />} />
                                 </>

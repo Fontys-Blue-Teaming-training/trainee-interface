@@ -24,6 +24,7 @@ const Navbar = () => {
                 {
                     !team.id ? <Button href="/" className="nav-button">Login</Button> : null
                 }
+                <Button href="/highscores" className="nav-button">Highscores</Button>
                 {
                     team.id && started ?
                         <>
