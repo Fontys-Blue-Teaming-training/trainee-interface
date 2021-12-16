@@ -35,7 +35,7 @@ const Guide = () => {
             guideHttpClient.getFlagHint(teamObj['id'], id)
                 .then((res: any) => {
                     if (res['success']) {
-                        const hint = new DisplayHint(res['message']['hintText'], res['message']['imageUrl']);
+                        const hint = new DisplayHint(res['message']['hintText'], "");
                         setHint(hint);
                         //localStorage.setItem('hint', JSON.stringify(hint));
                     }
@@ -125,9 +125,6 @@ const Guide = () => {
                         }
                         <div>
                             <p>{hint.hintText}</p>
-                        </div>
-                        <div>
-                            <img src={hint.imageUrl} alt="" />
                         </div>
                     </div>
                 </div>
