@@ -10,7 +10,7 @@ const Navbar = () => {
     const logOut = () => {
         localStorage.removeItem('start');
         localStorage.removeItem('team');
-        window.location.href = 'http://192.168.1.21/';
+        window.location.href = 'http://192.168.1.7/';
     }
 
     return (
@@ -29,7 +29,6 @@ const Navbar = () => {
                     team.id && started ?
                         <>
                             <Button href="/leaderboard" className="nav-button">Leaderboard</Button>
-                            <Button href="/highscores" className="nav-button">Highscores</Button>
                             <Button href="/flags" className="nav-button">Flags</Button>
                             <Button href="/guide" className="nav-button">Guide</Button>
                             <Button onClick={logOut} className="nav-button">Log Out</Button>
