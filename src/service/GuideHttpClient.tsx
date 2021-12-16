@@ -38,10 +38,21 @@ export class GuideHttpClient {
         .catch(reject);
     });
   }
+  public getPenalty(teamId: number, scenarioId: number) {
+    const path = 'hint/getpenalty/';
 
-  //public getCurrentScenarioId
-  //public getMaxHintId
-  //public addTimePenaltyToTeam
-  //public addHintRecord
-  //public getHintRecords
+    const headers = {
+      "Content-Type": "application/json",
+    }
+
+    return new Promise((resolve, reject) => {
+      fetch(this.baseUrl + path + "/" + teamId + "/" + scenarioId {
+        method: 'GET',
+        headers: headers
+      })
+        .then((res) => res.json())
+        .then((data) => resolve(data))
+        .catch(reject);
+    });
+  }
 }

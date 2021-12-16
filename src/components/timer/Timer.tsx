@@ -8,6 +8,7 @@ const Timer = () => {
     const { setTimer, currentScenario, setCurrentScenario } = useContext(TraineeInterfaceContext);
     const [alert, setAlert] = useState('');
     const [clock, setClock] = useState('');
+    const [timePenalty, setTimePenalty] = useState(0);
     const [intervalBool, setIntervalBool] = useState(false);
     const [startDate, setStartDate] = useState(new Date);
     const scenarioHttpClient = new ScenarioHttpClient();

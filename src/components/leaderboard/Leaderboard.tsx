@@ -8,8 +8,10 @@ import { useContext, useEffect, useState } from 'react';
 import { TraineeInterfaceContext } from '../../context/TraineeInterfaceContext';
 import { ScenarioHttpClient } from '../../service/ScenarioHttpClient';
 import { LeaderBoardEntry } from '../../model/LeaderboardEntry';
+import { GuideHttpClient } from '../../service/GuideHttpClient';
 import './Leaderboard.css';
 import Timer from '../timer/Timer';
+
 
 const Leaderboard = () => {
 
@@ -17,6 +19,7 @@ const Leaderboard = () => {
     const [alert, setAlert] = useState('');
     const [fetchLeaderBoard, setFetchLeaderBoard] = useState(false);
     const scenarioClient = new ScenarioHttpClient();
+
 
     const StyledTableRow = styled(TableRow)(({ theme }) => ({
         '&:nth-of-type(even)': {
@@ -82,6 +85,7 @@ const Leaderboard = () => {
                                     leaderboard = res['message'];
                                     setLeaderboardData(leaderboard);
                                     setFetchLeaderBoard(true);
+
                                 }
                                 else {
                                     setAlert(res['message']);

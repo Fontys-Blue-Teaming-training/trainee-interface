@@ -9,6 +9,7 @@ import { TraineeInterfaceContext } from '../../context/TraineeInterfaceContext';
 import { ScenarioHttpClient } from '../../service/ScenarioHttpClient';
 import { TeamHighScore } from '../../model/TeamHighScore';
 import './Highscores.css';
+import { GuideHttpClient } from '../../service/GuideHttpClient';
 
 const Highscores = () => {
 
@@ -16,6 +17,7 @@ const Highscores = () => {
     const [alert, setAlert] = useState('');
     const scenarioHttpClient = new ScenarioHttpClient();
     const [startDate, setStartDate] = useState(new Date);
+    const guideClient = new GuideHttpClient();
 
     const StyledTableRow = styled(TableRow)(({ theme }) => ({
         '&:nth-of-type(even)': {
@@ -72,7 +74,7 @@ const Highscores = () => {
     }
 
     useEffect(() => {
-        let team;
+        let team: any;
         try {
             const teamObj = localStorage.getItem('team');
             if (teamObj) {
@@ -92,9 +94,20 @@ const Highscores = () => {
                                 let array: TeamHighScore[];
                                 if (res['success']) {
                                     array = res['message'];
-                                    array.forEach((highscore) => {
-                                        highscore.timer = formatTime(highscore.totalSeconds);
-                                    });
+                                    guideClient.getPenalty(team.id, res['message']['scenario']['id'])
+                                        .then((penaltyRes: any) => {
+                                            if (penaltyRes['success']) {
+                                                array.forEach((highscore) => {
+                                                    highscore.timer = formatTime(highscore.totalSeconds + Number(res['message']));
+                                                });
+                                            }
+                                            else {
+                                                array.forEach((highscore) => {
+                                                    highscore.timer = formatTime(highscore.totalSeconds + Number(res['message']));
+                                                });
+                                            }
+                                        })
+
                                     setHighscores(array);
                                 }
                                 else {
