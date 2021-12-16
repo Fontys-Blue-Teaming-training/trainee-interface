@@ -40,7 +40,7 @@ export const WebSocketClient = () => {
                 switch (infoMessage.message) {
                     case "SCENARIO STARTED":
                         localStorage.setItem('start', "true");
-                        window.location.href = 'http://192.168.1.21/flags';
+                        window.location.href = 'http://192.168.1.7/flags';
                         break;
                     case "FLAG COMPLETED":
                         setFlagCompletedUpdate(!flagCompletedUpdate)
@@ -48,7 +48,7 @@ export const WebSocketClient = () => {
                     case "SCENARIO STOPPED":
                         localStorage.removeItem('start');
                         localStorage.removeItem('team');
-                        window.location.href = 'http://192.168.1.21/';
+                        window.location.href = 'http://192.168.1.7/';
                         break;
                 }
             }
