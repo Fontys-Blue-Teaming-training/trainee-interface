@@ -77,7 +77,23 @@ export class ScenarioHttpClient {
                 .then((data) => resolve(data))
                 .catch(reject);
         });
+    }
 
+    public getScenarios() {
+        const path = 'scenario';
 
+        const headers = {
+            "Content-Type": "application/json",
+        }
+
+        return new Promise((resolve, reject) => {
+            fetch(this.baseUrl + path, {
+                method: 'GET',
+                headers: headers
+            })
+                .then((res) => res.json())
+                .then((data) => resolve(data))
+                .catch(reject);
+        });
     }
 }

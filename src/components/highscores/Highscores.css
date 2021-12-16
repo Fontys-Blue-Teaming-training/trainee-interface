@@ -5,3 +5,11 @@
 .table-head {
     background-color: lightgray;
 }
+
+.select-scenario {
+    width: 50%;
+}
+
+.select-div {
+    width: 100%;
+}

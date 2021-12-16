@@ -2,21 +2,24 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import { styled, TableCell, TableRow } from '@material-ui/core';
+import { FormControl, InputLabel, MenuItem, Select, styled, TableCell, TableRow } from '@material-ui/core';
 import { tableCellClasses } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { TraineeInterfaceContext } from '../../context/TraineeInterfaceContext';
 import { ScenarioHttpClient } from '../../service/ScenarioHttpClient';
 import { TeamHighScore } from '../../model/TeamHighScore';
+import { Scenario } from "../../model/Scenario";
 import './Highscores.css';
 import { GuideHttpClient } from '../../service/GuideHttpClient';
+import { AnyMxRecord } from 'dns';
 
 const Highscores = () => {
 
     const { highscores, setHighscores } = useContext(TraineeInterfaceContext);
     const [alert, setAlert] = useState('');
     const scenarioHttpClient = new ScenarioHttpClient();
-    const [startDate, setStartDate] = useState(new Date);
+    const [attackSelection, setAttackSelection] = useState(0);
+    const [scenarios, setScenarios] = useState([] as Scenario[]);
     const guideClient = new GuideHttpClient();
 
     const StyledTableRow = styled(TableRow)(({ theme }) => ({
@@ -73,6 +76,10 @@ const Highscores = () => {
         return `${getHours}:${getMinutes}:${getSeconds}`
     }
 
+    const handleChange = (event: any) => {
+        setAttackSelection(event.target.value);
+    };
+
     useEffect(() => {
         let team: any;
         try {
@@ -85,29 +92,20 @@ const Highscores = () => {
             console.error(e);
         }
         if (team) {
+            scenarioHttpClient.getScenarios()
+                .then((res: any) => {
+                    if (res['success']) {
+                        setScenarios(res['message']);
+                    }
+                });
             scenarioHttpClient.getCurrent(team.id)
                 .then((res: any) => {
                     if (res['success']) {
-                        setStartDate(new Date(res['message']['startTime']));
-                        scenarioHttpClient.getHighscores(res['message']['scenario']['id'])
+                        scenarioHttpClient.getHighscores(attackSelection)
                             .then((res: any) => {
                                 let array: TeamHighScore[];
                                 if (res['success']) {
                                     array = res['message'];
-                                    guideClient.getPenalty(team.id, res['message']['scenario']['id'])
-                                        .then((penaltyRes: any) => {
-                                            if (penaltyRes['success']) {
-                                                array.forEach((highscore) => {
-                                                    highscore.timer = formatTime(highscore.totalSeconds + Number(res['message']));
-                                                });
-                                            }
-                                            else {
-                                                array.forEach((highscore) => {
-                                                    highscore.timer = formatTime(highscore.totalSeconds);
-                                                });
-                                            }
-                                        })
-
                                     setHighscores(array);
                                 }
                                 else {
@@ -129,6 +127,27 @@ const Highscores = () => {
             </div>
             <div className="body">
                 <div className="body-flex highscores">
+                    <div className="select-div">
+                        <FormControl variant="standard" className="select-scenario">
+                            <InputLabel id="demo-simple-select-standard-label">Attack</InputLabel>
+                            <Select
+                                className="select"
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
+                                value={attackSelection}
+                                onChange={handleChange}
+                                label="Attack"
+                            >
+                                <MenuItem value="-1">
+                                    <em>None</em>
+                                </MenuItem>
+
+                                {scenarios.map((scenario) =>
+                                    <MenuItem value={scenario.id} key={scenario.id}> {scenario.name} </MenuItem>
+                                )}
+                            </Select>
+                        </FormControl>
+                    </div>
                     {
                         highscores.length > 0 ?
                             <>
