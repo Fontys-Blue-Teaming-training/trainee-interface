@@ -90,6 +90,15 @@ const Highscores = () => {
         catch (e) {
             console.error(e);
         }
+        scenarioHttpClient.getScenarios()
+            .then((res: any) => {
+                if (res['success']) {
+                    setScenarios(res['message']);
+                }
+                else {
+                    setAlert(res['message'])
+                }
+            });
         scenarioHttpClient.getHighscores(attackSelection)
             .then((res: any) => {
                 let array: TeamHighScore[];
