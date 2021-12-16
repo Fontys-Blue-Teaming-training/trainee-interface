@@ -106,6 +106,9 @@ const Highscores = () => {
                                 let array: TeamHighScore[];
                                 if (res['success']) {
                                     array = res['message'];
+                                    array.forEach((highscore) => {
+                                        highscore.timer = formatTime(highscore.totalSeconds);
+                                    });
                                     setHighscores(array);
                                 }
                                 else {
