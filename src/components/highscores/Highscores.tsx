@@ -11,7 +11,6 @@ import { TeamHighScore } from '../../model/TeamHighScore';
 import { Scenario } from "../../model/Scenario";
 import './Highscores.css';
 import { GuideHttpClient } from '../../service/GuideHttpClient';
-import { AnyMxRecord } from 'dns';
 
 const Highscores = () => {
 
@@ -91,36 +90,20 @@ const Highscores = () => {
         catch (e) {
             console.error(e);
         }
-        if (team) {
-            scenarioHttpClient.getScenarios()
-                .then((res: any) => {
-                    if (res['success']) {
-                        setScenarios(res['message']);
-                    }
-                });
-            scenarioHttpClient.getCurrent(team.id)
-                .then((res: any) => {
-                    if (res['success']) {
-                        scenarioHttpClient.getHighscores(attackSelection)
-                            .then((res: any) => {
-                                let array: TeamHighScore[];
-                                if (res['success']) {
-                                    array = res['message'];
-                                    array.forEach((highscore) => {
-                                        highscore.timer = formatTime(highscore.totalSeconds);
-                                    });
-                                    setHighscores(array);
-                                }
-                                else {
-                                    setAlert(res['message']);
-                                }
-                            })
-                    }
-                    else {
-                        setAlert(res['message'])
-                    }
-                })
-        }
+        scenarioHttpClient.getHighscores(attackSelection)
+            .then((res: any) => {
+                let array: TeamHighScore[];
+                if (res['success']) {
+                    array = res['message'];
+                    array.forEach((highscore) => {
+                        highscore.timer = formatTime(highscore.totalSeconds);
+                    });
+                    setHighscores(array);
+                }
+                else {
+                    setAlert(res['message']);
+                }
+            });
     }, []);
 
     return (
