@@ -46,7 +46,7 @@ export class GuideHttpClient {
     }
 
     return new Promise((resolve, reject) => {
-      fetch(this.baseUrl + path + "/" + teamId + "/" + scenarioId {
+      fetch(this.baseUrl + path + "/" + teamId + "/" + scenarioId, {
         method: 'GET',
         headers: headers
       })

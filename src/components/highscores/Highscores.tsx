@@ -103,7 +103,7 @@ const Highscores = () => {
                                             }
                                             else {
                                                 array.forEach((highscore) => {
-                                                    highscore.timer = formatTime(highscore.totalSeconds + Number(res['message']));
+                                                    highscore.timer = formatTime(highscore.totalSeconds);
                                                 });
                                             }
                                         })
