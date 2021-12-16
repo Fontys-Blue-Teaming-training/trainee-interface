@@ -99,6 +99,10 @@ const Highscores = () => {
                     setAlert(res['message'])
                 }
             });
+
+    }, []);
+
+    useEffect(() => {
         scenarioHttpClient.getHighscores(attackSelection)
             .then((res: any) => {
                 let array: TeamHighScore[];
@@ -113,7 +117,7 @@ const Highscores = () => {
                     setAlert(res['message']);
                 }
             });
-    }, []);
+    }, [attackSelection])
 
     return (
         <div className="wrapper">
