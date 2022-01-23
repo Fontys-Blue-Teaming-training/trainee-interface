@@ -1,5 +1,5 @@
-### Teacher interface
-React project to control training.
+## Student interface
+React interface for students to submit flags, get hints and view leaderboard/highscores.
 Made with Material UI(https://mui.com/getting-started/installation/) and react-use-websocket(https://www.npmjs.com/package/react-use-websocket)
 
 
